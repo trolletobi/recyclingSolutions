@@ -1,0 +1,350 @@
+ <!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <title>Recycle Solutions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+	    display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+	    flex: 1;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            width: 100%;
+        }
+
+        /* Kortets container */
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        /* Styling af formularer og sektioner */
+        .container {
+            margin: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Styling til opslag-sektionen */
+        .posts {
+            margin-top: 30px;
+        }
+
+        .post {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .post h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .post p {
+            margin: 5px 0;
+        }
+
+        /* Søgefelt i højre hjørne */
+        .search-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        .search-container input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .search-container button {
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .search-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* Kontakt sektion */
+        .contact-container {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-container h2 {
+            text-align: center;
+        }
+
+        .contact-container form {
+            display: block;
+        }
+
+
+        .contact-container input[type="text"], .contact-container input[type="email"], .contact-container textarea {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+	.contact-container input[type="submit"] {
+	    background-color: #4CAF50;
+	    color: white;
+	    border: none;
+	    padding: 10px 20px;
+	    font-size: 16px;
+	    cursor: pointer;
+	    border-radius: 5px;
+	    width: 80%;
+ 	    margin-top: 10px;
+ 	    display: block;
+ 	    text-align: center;
+         }
+
+         .contact-container input[type="submit"]:hover {
+            background-color: #45a049;
+         }
+
+
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Recycle Solutions!</h1>
+    </header>
+
+    <main>
+        <h2>Om os</h2>
+        <p>Vi er et firma som hjælper andre firmaer med at genbruge spild materiale og værktøjer!</p>
+
+        <!-- Google Maps -->
+        <div id="map"></div>
+    </main>
+<!-- Formular til Oprettelse af opslag -->
+            <div id="create-post" class="container">
+            <h2>Opret et opslag</h2>
+            
+            <form id="post-form">
+                <div class="form-group">
+                   <label for="material">Hvilket genbrugsmateriale har du?</label>
+                   <input type="text" id="material" name="material" required placeholder="F.eks. plast, metal, rustfrit">
+               </div>
+
+               <div class="form-group">
+                   <label for="type">Hvilken type materiale/værktøj har du? Certifikat?</label>
+                   <input type="text" id="type" name="type" required placeholder="F.eks. AISI 304">
+               </div>
+
+               <div class="form-group">
+                   <label for="quantity-length">Længde</label>
+                   <input type="number" id="quantity-length" name="quantity-length" required placeholder="F.eks. 100mm">
+               </div>
+
+               <div class="form-group">
+                   <label for="quantity-width">Bredde</label>
+                   <input type="number" id="quantity-width" name="quantity-width" required placeholder="F.eks. 100mm">
+               </div>
+
+               <div class="form-group">
+                   <label for="location">Hvor befinder du dig?</label>
+                   <input type="text" id="location" name="location" required placeholder="F.eks. Aalestrup, Frederikshavn">
+               </div>
+
+               <div class="form-group">
+                   <label for="company">Hvad hedder firmaet?</label>
+                   <input type="text" id="company" name="company" required placeholder="F.eks. PH Spånteknik">
+               </div>
+
+               <div class="form-group">
+                   <label for="contact">Din kontakt-email</label>
+                   <input type="email" id="contact" name="contact" required placeholder="F.eks. firma@eksempel.dk">
+               </div>
+ 
+               <div class="form-group">
+                  <label for="phone">Dit tlf nummer</label>
+                  <input type="text" id="phone" name="phone" required placeholder="F.eks. +45 12121212">
+               </div>
+
+               <input type="submit" value="Opret opslag">
+           </form>
+
+        </div>
+        <div id="view-posts" class="container">
+                <h2>Se oprettede opslag</h2>
+                <div id="posts"></div>
+        </div>
+            </form>     
+        </form>
+    
+    </main>
+           
+
+        
+       
+
+    <!-- Kontakt sektion -->
+    <div id="contact" class="contact-container">
+        <h2>Kontakt os</h2>
+
+        <form id="contact-form">
+            <div class="form-group">
+                <label for="name">Navn</label>
+                <input type="text" id="name" name="name" required placeholder="F.eks. Jens Hansen">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="F.eks. jens@hansen.dk">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Besked</label>
+                <textarea id="message" name="message" rows="2" required placeholder="Skriv din besked her..."></textarea>
+            </div>
+
+            
+            <input type="submit" value="Send besked">
+        </form>
+    </div>
+
+    <footer>
+        
+                  <p>&copy; 2025 Recycle Solutions. Alle rettigheder forbeholdes.</p>
+    </footer>
+
+    <!-- Google Maps JS API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANR1w9DG-3VITZxTb4B2Nc27chi5ZHN7g&callback=initMap" async defer></script>
+
+   
+       <script>
+           let map;
+
+           // Initialiser Google Maps
+           function initMap() {
+               map = new google.maps.Map(document.getElementById('map'), {
+                   center: { lat: 56.2639, lng: 9.5018 },
+                   zoom: 7
+               });
+           }
+
+           document.getElementById('post-form').addEventListener('submit', function(event) {
+               event.preventDefault();
+
+               // Hent værdier fra formularen
+               const material = document.getElementById('material').value;
+               const quantity = document.getElementById('quantity-length').value + ' x ' + document.getElementById('quantity-width').value + ' mm';
+               const location = document.getElementById('location').value;
+               const contact = document.getElementById('contact').value;
+
+               // Opret nyt opslag
+               const newPost = document.createElement('div');
+               newPost.classList.add('post');
+               newPost.innerHTML = `
+                   <h3>Materiale: ${material}</h3>
+                   <p><strong>Mængde:</strong> ${quantity}</p>
+                   <p><strong>Placering:</strong> ${location}</p>
+                   <p><strong>Kontakt:</strong> ${contact}</p>
+               `;
+
+               // Tilføj opslaget til opslag-sektionen
+               document.getElementById('posts').appendChild(newPost);
+
+               // Ryd formularen efter opslaget er oprettet
+               document.getElementById('post-form').reset();
+           });
+
+           // Funktion til at søge i opslag
+           function searchFunction() {
+              const searchQuery = document.getElementById('search').value.toLowerCase();
+              const posts = document.querySelectorAll('.post');
+
+              posts.forEach(post => {
+                  const material = post.querySelector('h3').textContent.toLowerCase();
+                  if (material.includes(searchQuery)) {
+                      post.style.display = 'block';
+                  } else {
+                     post.style.display = 'none';
+                  }
+              });
+          }
+      </script>
+
+
+</body>
+</html>
