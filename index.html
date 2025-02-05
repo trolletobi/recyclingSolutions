@@ -19,7 +19,8 @@
             color: white;
             text-align: center;
             padding: 20px;
-        }
+
+        } 
         main {
             padding: 20px;
             text-align: center;
@@ -60,6 +61,7 @@
             border-radius: 5px;
             border: 1px solid #ddd;
             font-size: 14px;
+            
         }
 
         input[type="submit"] {
@@ -141,10 +143,11 @@
             padding: 50px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            
         }
 
         .contact-container h2 {
-            text-align: center;
+            text-align: left;
         }
 
         .contact-container form {
@@ -153,12 +156,14 @@
 
 
         .contact-container input[type="text"], .contact-container input[type="email"], .contact-container textarea {
-            width: 80%;
+            width: 50%;
             padding: 10px;
-            margin-top: 10px;
+            margin-top: 5px;
             border-radius: 5px;
             border: 1px solid #ddd;
             font-size: 14px;
+	    text-align: left;
+            display: block;
         }
 
 	.contact-container input[type="submit"] {
@@ -169,7 +174,7 @@
 	    font-size: 16px;
 	    cursor: pointer;
 	    border-radius: 5px;
-	    width: 80%;
+	    width: 51%;
  	    margin-top: 10px;
  	    display: block;
  	    text-align: center;
@@ -191,11 +196,22 @@
 
     <main>
         <h2>Om os</h2>
-        <p>Vi er et firma som hjælper andre firmaer med at genbruge spild materiale og værktøjer!</p>
+        <p>Vi er et firma som gør det nemmere at genbruge spildt eller brugt materiale, samt værktøj for andre virksomheder!</p>
+
+	<img src="https://raw.githubusercontent.com/trolletobi/recyclingSolutions/refs/heads/main/Recycling_sign_green.webp" alt="RECYCLE SOLUTIONS" width="550" height="500">
 
         <!-- Google Maps -->
         <div id="map"></div>
     </main>
+
+
+
+            
+
+                      
+                   </form>
+               </div>
+
 <!-- Formular til Oprettelse af opslag -->
             <div id="create-post" class="container">
             <h2>Opret et opslag</h2>
@@ -208,7 +224,7 @@
 
                <div class="form-group">
                    <label for="type">Hvilken type materiale/værktøj har du? Certifikat?</label>
-                   <input type="text" id="type" name="type" required placeholder="F.eks. AISI 304">
+                   <input type="text" id="type" name="type" required placeholder="F.eks. AISI 304, Hm-bor, KH-bor">
                </div>
 
                <div class="form-group">
@@ -222,7 +238,7 @@
                </div>
 
                <div class="form-group">
-                   <label for="location">Hvor befinder du dig?</label>
+                   <label for="location">Hvor befinder firmaet sig?</label>
                    <input type="text" id="location" name="location" required placeholder="F.eks. Aalestrup, Frederikshavn">
                </div>
 
@@ -244,6 +260,7 @@
                <input type="submit" value="Opret opslag">
            </form>
 
+          
         </div>
         <div id="view-posts" class="container">
                 <h2>Se oprettede opslag</h2>
@@ -307,19 +324,27 @@
                event.preventDefault();
 
                // Hent værdier fra formularen
+               const company = document.getElementById('company').value;
                const material = document.getElementById('material').value;
                const quantity = document.getElementById('quantity-length').value + ' x ' + document.getElementById('quantity-width').value + ' mm';
                const location = document.getElementById('location').value;
                const contact = document.getElementById('contact').value;
+               const phone = document.getElementById('phone').value;
+
+
+
+
 
                // Opret nyt opslag
                const newPost = document.createElement('div');
                newPost.classList.add('post');
                newPost.innerHTML = `
+                   <p><strong>Firma:</strong> ${company}</p>
                    <h3>Materiale: ${material}</h3>
                    <p><strong>Mængde:</strong> ${quantity}</p>
                    <p><strong>Placering:</strong> ${location}</p>
                    <p><strong>Kontakt:</strong> ${contact}</p>
+		   <p><strong>Telefon:</strong> ${phone}</p>
                `;
 
                // Tilføj opslaget til opslag-sektionen
@@ -343,7 +368,12 @@
                   }
               });
           }
+
+        
+
+
       </script>
+
 
 
 </body>
